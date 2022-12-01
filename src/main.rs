@@ -7,7 +7,6 @@ fn execute_day(day: usize) -> Result<&'static str, &'static str> {
         1 => Ok(days::day1::solve()),
         2 => Ok(days::day2::solve()),
         _ => Err("Oh no"),
-        // _ => null,
     }
 }
 
