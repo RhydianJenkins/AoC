@@ -9,5 +9,5 @@ edition = "2021"
 [dependencies]
 
 [[bin]]
-name = "advent-2019"
-path = "main.rs"
+name = "advent-2022"
+path = "src/main.rs"
