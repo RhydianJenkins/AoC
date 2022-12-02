@@ -4,5 +4,5 @@ https://adventofcode.com/2022
 
 ```bash
 # Run day 13 puzzle
-cargo build && cargo run 13
+cargo run 13
 ```
