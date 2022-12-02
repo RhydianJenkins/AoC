@@ -15,5 +15,5 @@ fn main() {
     let day = args[1].parse::<usize>().unwrap();
     let output = execute_day(day).unwrap();
 
-    println!("Part 1: {}", output);
+    println!("{}", output);
 }
