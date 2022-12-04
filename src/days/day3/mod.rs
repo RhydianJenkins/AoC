@@ -1,3 +1,3 @@
 pub fn solve() -> &'static str {
-    return "Not yet implemented";
+    return "Missed due to holiday :(";
 }
