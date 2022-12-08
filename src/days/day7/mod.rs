@@ -28,7 +28,7 @@ fn read_tree<'a>(input: &'a Vec<&'a str>) -> Result<Node<'a>, &str> {
         parent: Box::new(None),
     };
 
-    let mut current_node: &mut Node = &mut root;
+    let mut current_node: &Node = &root;
 
     for line in input {
         if line.contains("cd") {
@@ -45,15 +45,13 @@ fn read_tree<'a>(input: &'a Vec<&'a str>) -> Result<Node<'a>, &str> {
                 .find(|child| *child.name == change_dir_name);
 
             if found_node.is_some() {
-                // TODO fetch/save child node
-
-                // current_node = *found_node.unwrap();
+                current_node = *found_node.unwrap();
                 continue;
             }
 
-            // TODO create/save child node
+            let new_child_node = create_child_node(&change_dir_name).unwrap();
 
-            // let mut new_child_node = create_child_node(&change_dir_name.clone().trim()).unwrap();
+            // TODO new_child_node is gone, how do we then pass it into the push?
             // current_node.children.push(&new_child_node);
             // current_node = &new_child_node;
             continue;
