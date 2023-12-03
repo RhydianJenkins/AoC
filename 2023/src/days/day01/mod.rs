@@ -1,22 +1,42 @@
+use std::collections::HashMap;
+
 pub fn get_number(input: &str) -> Result<usize, &str> {
-    let input = input.chars().collect::<Vec<char>>();
+    let number_map = HashMap::from([
+        ("1", 1),
+        ("2", 2),
+        ("3", 3),
+        ("4", 4),
+        ("5", 5),
+        ("6", 6),
+        ("7", 7),
+        ("8", 8),
+        ("9", 9),
+        ("one", 1),
+        ("two", 2),
+        ("three", 3),
+        ("four", 4),
+        ("five", 5),
+        ("six", 6),
+        ("seven", 7),
+        ("eight", 8),
+        ("nine", 9),
+    ]);
+
     let mut first: Option<usize> = Option::None;
     let mut last: Option<usize> = Option::None;
 
-    let mut index = 0;
-
-    while index < input.len() {
-        if input[index].is_numeric() {
-            if first == Option::None {
-                first = Some(input[index].to_digit(10).unwrap() as usize)
+    for index in 0..input.len() {
+        for (pattern, value) in number_map.iter() {
+            if input[index..].starts_with(*pattern) {
+                if first == Option::None {
+                    first = Some(*value);
+                }
+                last = Some(*value);
             }
-            last = Some(input[index].to_digit(10).unwrap() as usize)
         }
-
-        index += 1;
     }
 
-    if first == Option::None || last == Option::None {
+    if first == Option::None {
         return Err("No number found");
     }
 
@@ -55,17 +75,31 @@ mod tests {
 
     #[test]
     fn with_example_input() {
-        let test_input = "ab1cd2ef";
+        let test_input = "ab1cdtwoef";
         let answer = get_number(test_input);
 
         assert_eq!(answer, Ok(12));
     }
 
     #[test]
-    fn with_example_inputs() {
-        let test_input: Vec<&str> = vec!["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];
+    fn with_example_inputs_1() {
+        let test_input: Vec<&str> = vec!["1abc2", "pqr3stueightvwx", "a1btwoc3d4e5f", "treb7uchet"];
         let answer = calculate_sums(test_input);
-
         assert_eq!(answer, Ok(142));
+    }
+
+    #[test]
+    fn with_example_inputs_2() {
+        let test_input: Vec<&str> = vec![
+            "two1nine",
+            "eightwothree",
+            "abcone2threexyz",
+            "xtwone3four",
+            "4nineeightseven2",
+            "zoneight234",
+            "7pqrstsixteen",
+        ];
+        let answer = calculate_sums(test_input);
+        assert_eq!(answer, Ok(281));
     }
 }
