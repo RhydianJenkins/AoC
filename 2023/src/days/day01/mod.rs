@@ -1,4 +1,4 @@
-pub fn get_number(input: &str) -> Result<usize, &'static str> {
+pub fn get_number(input: &str) -> Result<usize, &str> {
     let input = input.chars().collect::<Vec<char>>();
     let mut first: Option<usize> = Option::None;
     let mut last: Option<usize> = Option::None;
@@ -26,7 +26,7 @@ pub fn get_number(input: &str) -> Result<usize, &'static str> {
     Ok(number)
 }
 
-pub fn calculate_sums(inputs: Vec<&str>) -> Result<usize, String> {
+pub fn calculate_sums(inputs: Vec<&str>) -> Result<usize, &str> {
     let sums = inputs.iter().fold(Ok(0), |acc, input| {
         let num = get_number(input)?;
         acc.map(|acc| acc + num)
@@ -37,7 +37,6 @@ pub fn calculate_sums(inputs: Vec<&str>) -> Result<usize, String> {
 
 pub fn solve() -> Result<String, String> {
     let inputs = include_str!("./input.txt");
-    println!("Day 1 Part 1: {}", inputs);
     let result = calculate_sums(inputs.lines().collect()).unwrap();
     Ok(result.to_string())
 }
