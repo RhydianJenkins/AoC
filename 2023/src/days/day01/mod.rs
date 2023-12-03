@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-pub fn get_number(input: &str) -> Result<usize, &str> {
+fn get_number(input: &str) -> Result<usize, &str> {
     let number_map = HashMap::from([
         ("1", 1),
         ("2", 2),
@@ -46,7 +46,7 @@ pub fn get_number(input: &str) -> Result<usize, &str> {
     Ok(number)
 }
 
-pub fn calculate_sums(inputs: Vec<&str>) -> Result<usize, &str> {
+fn calculate_sums(inputs: Vec<&str>) -> Result<usize, &str> {
     let sums = inputs.iter().fold(Ok(0), |acc, input| {
         let num = get_number(input)?;
         acc.map(|acc| acc + num)
