@@ -2,10 +2,10 @@ mod days;
 
 use std::env;
 
-fn execute_day(day: usize) -> Result<&'static str, &'static str> {
+fn execute_day(day: usize) -> Result<String, String> {
     match day {
         1 => days::day01::solve(),
-        _ => Err("Invalid day"),
+        _ => Err("Invalid day".to_string()),
     }
 }
 
