@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub fn get_number(input: &str) -> Result<usize, &'static str> {
     let input = input.chars().collect::<Vec<char>>();
     let mut first: Option<usize> = Option::None;
@@ -44,7 +42,8 @@ pub fn solve() -> Result<String, String> {
     Ok(result.to_string())
 }
 
-pub mod tests {
+#[cfg(test)]
+mod tests {
     use super::*;
 
     #[test]
