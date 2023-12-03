@@ -5,6 +5,7 @@ use std::env;
 fn execute_day(day: usize) -> Result<String, String> {
     match day {
         1 => days::day01::solve(),
+        2 => days::day02::solve(),
         _ => Err(format!("Invalid day {}", day)),
     }
 }
