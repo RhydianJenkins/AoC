@@ -28,7 +28,7 @@ fn get_number(input: &str) -> Result<usize, &str> {
     for index in 0..input.len() {
         for (pattern, value) in number_map.iter() {
             if input[index..].starts_with(*pattern) {
-                if first == Option::None {
+                if first.is_none() {
                     first = Some(*value);
                 }
                 last = Some(*value);
@@ -36,7 +36,7 @@ fn get_number(input: &str) -> Result<usize, &str> {
         }
     }
 
-    if first == Option::None {
+    if first.is_none() {
         return Err("No number found");
     }
 

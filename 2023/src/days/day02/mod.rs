@@ -3,7 +3,7 @@ mod game;
 use game::Game;
 
 fn read_games(inputs: Vec<&str>) -> Result<Vec<Game>, &str> {
-    let games = inputs.iter().map(|input| Game::new(*input)).collect();
+    let games = inputs.iter().map(|input| Game::new(input)).collect();
 
     Ok(games)
 }

@@ -9,23 +9,23 @@ pub struct Game {
 fn get_id(line: &str) -> Result<u64, &'static str> {
     let error_msg = "Could not extract id";
 
-    match line.split(" ").nth(1) {
-        Some(id) => Ok(id.replace(":", "").parse::<u64>().map_err(|_| error_msg)?),
+    match line.split(' ').nth(1) {
+        Some(id) => Ok(id.replace(':', "").parse::<u64>().map_err(|_| error_msg)?),
         None => Err(error_msg),
     }
 }
 
 fn get_max(line: &str, color: &str) -> u8 {
-    line.split(":")
+    line.split(':')
         .last()
         .unwrap()
-        .split(";")
+        .split(';')
         .map(|part| {
-            part.split(",")
+            part.split(',')
                 .filter(|part| part.contains(color))
                 .map(|part| {
                     part.replace(color, "")
-                        .replace(" ", "")
+                        .replace(' ', "")
                         .parse::<u8>()
                         .unwrap()
                 })
