@@ -111,7 +111,6 @@ mod tests {
     use super::*;
 
     #[test]
-    #[ignore]
     fn extracting_id_gracefully_fails() {
         let input = "Some bs string";
 
@@ -119,7 +118,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn can_extract_id() {
         let input = "Game 123: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green";
 
@@ -127,7 +125,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn can_extract_max_colours() {
         let input = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green";
 
@@ -137,7 +134,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn can_find_smallest_game() {
         let input = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green";
         let (min_red, min_green, min_blue) = get_min_cubes_possible(input);
