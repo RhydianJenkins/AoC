@@ -8,32 +8,40 @@ struct Number {
 fn read_numbers(inputs: Vec<&str>) -> Result<Vec<Number>, String> {
     let numbers: Vec<Number> = Vec::new();
 
-    for input in inputs {
-        let parts = input
-            .split('.')
-            .enumerate()
-            .filter_map(|(index, c)| {
-                let value = c.parse::<u32>();
+    // go through the numbers and find the digits with their start and end indexes
+    let found_numbers = inputs
+        .iter()
+        .map(|input| {
+            let mut start: u8 = 0;
+            let mut end: u8 = 0;
 
-                if value.is_err() {
-                    return None;
+            for (index, digit) in input.chars().enumerate() {
+                if digit.is_digit(10) {
+                    if start == 0 {
+                        start = index as u8;
+                    }
+                    end = index as u8;
+
+                    continue;
                 }
 
-                let start = index as u8;
-                let num_size = value.clone().unwrap().to_string().len();
-                let end = index as u8 + num_size as u8;
-                let num = Number {
-                    value: value.unwrap(),
-                    start,
-                    end,
-                };
+                break;
+            }
 
-                // TODO the number indexes don't account for multi-digit numbers
+            let value = input[start as usize..end as usize].parse::<u32>();
 
-                Some(num)
-            })
-            .collect::<Vec<Number>>();
-    }
+            println!("start: {:?}", start);
+            println!("end: {:?}", end);
+
+            Number {
+                value: value.unwrap(),
+                start,
+                end,
+            }
+        })
+        .collect::<Vec<Number>>();
+
+    println!("Found numbers len: {}", found_numbers.len());
 
     Ok(numbers)
 }
