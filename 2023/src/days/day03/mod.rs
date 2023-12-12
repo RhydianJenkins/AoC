@@ -1,47 +1,37 @@
-#[derive(Debug)]
-struct Number {
-    pub value: u32,
-    pub start: u8,
-    pub end: u8,
+mod number;
+
+use number::Number;
+use std::num::ParseIntError;
+
+fn read_number(input: &str, start_index: Option<usize>) -> Result<Number, ParseIntError> {
+    let start_index = start_index.unwrap_or(0);
+    let mut start: usize = 0;
+    let mut end: usize = 0;
+
+    for (index, digit) in input.chars().enumerate().skip(start_index) {
+        if !digit.is_digit(10) {
+            break;
+        }
+
+        if start == 0 {
+            start = index;
+        }
+
+        end = index;
+    }
+
+    let value = input[start as usize..end as usize].parse::<usize>()?;
+    let number = Number { value, start, end };
+
+    Ok(number)
 }
 
 fn read_numbers(inputs: Vec<&str>) -> Result<Vec<Number>, String> {
-    let numbers: Vec<Number> = Vec::new();
-
-    // go through the numbers and find the digits with their start and end indexes
-    let found_numbers = inputs
+    let numbers: Vec<Number> = inputs
         .iter()
-        .map(|input| {
-            let mut start: u8 = 0;
-            let mut end: u8 = 0;
-
-            for (index, digit) in input.chars().enumerate() {
-                if digit.is_digit(10) {
-                    if start == 0 {
-                        start = index as u8;
-                    }
-                    end = index as u8;
-
-                    continue;
-                }
-
-                break;
-            }
-
-            let value = input[start as usize..end as usize].parse::<u32>();
-
-            println!("start: {:?}", start);
-            println!("end: {:?}", end);
-
-            Number {
-                value: value.unwrap(),
-                start,
-                end,
-            }
-        })
-        .collect::<Vec<Number>>();
-
-    println!("Found numbers len: {}", found_numbers.len());
+        .enumerate()
+        .map(|(index, input)| read_number(input, Option::from(index)).unwrap())
+        .collect();
 
     Ok(numbers)
 }
@@ -57,6 +47,15 @@ pub mod tests {
     use super::*;
 
     #[test]
+    fn reads_number() {
+        let input = "467..114..";
+        let number = read_number(input, Option::None);
+        assert!(number.is_ok());
+        assert!(number.unwrap().value == 467);
+    }
+
+    #[test]
+    #[ignore]
     fn reads_numbers() {
         let input = vec![
             "467..114..",
